@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.watchapp.view;
+
 import javax.swing.Timer;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,24 +16,32 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
+import com.watchapp.controller.algorithm.SelectionSort;
+import com.watchapp.controller.algorithm.MergeSort;
+import com.watchapp.controller.algorithm.BinarySearch;
 
 /**
  *
- * @author Santoshi Paudel
- * LMU ID: 23048656
+ * @author Santoshi Paudel LMU ID: 23048656
  */
 public class Watch extends javax.swing.JFrame {
+
     private List<WatchIS> watchIS;
     private java.awt.CardLayout cardLayout;
     private final ValidationUtil validationUtil;
-    
+    private final SelectionSort selectionSort;
+    private final MergeSort mergeSort;
+    private final BinarySearch binarySearch;
+
     public Watch() {
         initComponents();
         validationUtil = new ValidationUtil();
         initializeLayout(); // Set up CardLayout and add screens
         initializeWatchData(); // Initialize watch data
         Progress(); // Show loading screen and initiate progress
+        selectionSort = new SelectionSort();
+        mergeSort = new MergeSort();
+        binarySearch = new BinarySearch();
     }
 
     /**
@@ -107,13 +116,17 @@ public class Watch extends javax.swing.JFrame {
         tfBrand = new javax.swing.JTextField();
         tfPrice = new javax.swing.JTextField();
         tfWarranty = new javax.swing.JTextField();
-        pnlAddUpdateDelete = new javax.swing.JPanel();
         btnAddWatch = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         btnDisplay = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        pnlAddUpdateDelete = new javax.swing.JPanel();
+        btnMergeSortBySerialNumber = new javax.swing.JButton();
+        btnSelectionSortByPrice = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
         lblErrorMessage = new javax.swing.JLabel();
+        txtFldSearch = new javax.swing.JTextField();
         pnlContactUs = new javax.swing.JPanel();
         lblContactImage = new javax.swing.JLabel();
         lblContactHeading = new javax.swing.JLabel();
@@ -698,50 +711,6 @@ public class Watch extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout pnlFormLayout = new javax.swing.GroupLayout(pnlForm);
-        pnlForm.setLayout(pnlFormLayout);
-        pnlFormLayout.setHorizontalGroup(
-            pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFormLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblForm)
-                    .addComponent(tfModelNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfWarranty, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(186, 186, 186))
-        );
-        pnlFormLayout.setVerticalGroup(
-            pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFormLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblForm)
-                .addGap(31, 31, 31)
-                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfModelNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfSerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlFormLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(tfBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfWarranty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(79, Short.MAX_VALUE))
-        );
-
-        pnlAddUpdateDelete.setBackground(new java.awt.Color(204, 204, 204));
-
         btnAddWatch.setBackground(new java.awt.Color(0, 102, 153));
         btnAddWatch.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         btnAddWatch.setForeground(new java.awt.Color(255, 255, 255));
@@ -752,16 +721,6 @@ public class Watch extends javax.swing.JFrame {
             }
         });
 
-        btnDelete.setBackground(new java.awt.Color(0, 102, 153));
-        btnDelete.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("DELETE");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
         btnUpdate.setBackground(new java.awt.Color(0, 102, 153));
         btnUpdate.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
@@ -769,6 +728,16 @@ public class Watch extends javax.swing.JFrame {
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setBackground(new java.awt.Color(0, 102, 153));
+        btnDelete.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -792,34 +761,126 @@ public class Watch extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout pnlFormLayout = new javax.swing.GroupLayout(pnlForm);
+        pnlForm.setLayout(pnlFormLayout);
+        pnlFormLayout.setHorizontalGroup(
+            pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFormLayout.createSequentialGroup()
+                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFormLayout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfSerialNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(tfModelNumber)
+                            .addComponent(tfName))
+                        .addGap(34, 34, 34)
+                        .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfBrand, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(tfPrice)
+                            .addComponent(tfWarranty))
+                        .addGap(51, 51, 51)
+                        .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddWatch, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDisplay)
+                            .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlFormLayout.createSequentialGroup()
+                        .addGap(226, 226, 226)
+                        .addComponent(lblForm)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlFormLayout.setVerticalGroup(
+            pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblForm)
+                .addGap(31, 31, 31)
+                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfSerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfModelNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfWarranty, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddWatch, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btnDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
+        );
+
+        pnlAddUpdateDelete.setBackground(new java.awt.Color(0, 102, 153));
+        pnlAddUpdateDelete.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        btnMergeSortBySerialNumber.setBackground(new java.awt.Color(153, 153, 153));
+        btnMergeSortBySerialNumber.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        btnMergeSortBySerialNumber.setText("Sort SerialNumber");
+        btnMergeSortBySerialNumber.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnMergeSortBySerialNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMergeSortBySerialNumberActionPerformed(evt);
+            }
+        });
+
+        btnSelectionSortByPrice.setBackground(new java.awt.Color(153, 153, 153));
+        btnSelectionSortByPrice.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        btnSelectionSortByPrice.setText("Sort Price");
+        btnSelectionSortByPrice.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnSelectionSortByPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectionSortByPriceActionPerformed(evt);
+            }
+        });
+
+        btnSearch.setBackground(new java.awt.Color(153, 153, 153));
+        btnSearch.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        btnSearch.setText("Search");
+        btnSearch.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlAddUpdateDeleteLayout = new javax.swing.GroupLayout(pnlAddUpdateDelete);
         pnlAddUpdateDelete.setLayout(pnlAddUpdateDeleteLayout);
         pnlAddUpdateDeleteLayout.setHorizontalGroup(
             pnlAddUpdateDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddUpdateDeleteLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(pnlAddUpdateDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnDisplay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddWatch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 40, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addGroup(pnlAddUpdateDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddUpdateDeleteLayout.createSequentialGroup()
+                        .addComponent(btnMergeSortBySerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddUpdateDeleteLayout.createSequentialGroup()
+                        .addGroup(pnlAddUpdateDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSelectionSortByPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39))))
         );
         pnlAddUpdateDeleteLayout.setVerticalGroup(
             pnlAddUpdateDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddUpdateDeleteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAddWatch, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(btnMergeSortBySerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addComponent(btnSelectionSortByPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         lblErrorMessage.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
@@ -827,41 +888,53 @@ public class Watch extends javax.swing.JFrame {
         lblErrorMessage.setText("         ");
         lblErrorMessage.setBorder(new javax.swing.border.MatteBorder(null));
 
+        txtFldSearch.setFont(new java.awt.Font("Helvetica Neue", 0, 12)); // NOI18N
+        txtFldSearch.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("ITF Devanagari Marathi", 1, 14))); // NOI18N
+
         javax.swing.GroupLayout pnlWatchCollectionsLayout = new javax.swing.GroupLayout(pnlWatchCollections);
         pnlWatchCollections.setLayout(pnlWatchCollectionsLayout);
         pnlWatchCollectionsLayout.setHorizontalGroup(
             pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
-                .addGroup(pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(165, 165, 165)
+                .addGroup(pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addGroup(pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(scrlPaneWatchInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 1122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
-                                .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pnlAddUpdateDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(lblWatchdetails, javax.swing.GroupLayout.PREFERRED_SIZE, 1429, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlWatchCollectionsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblWatchdetails, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(146, 146, 146)
+                        .addComponent(txtFldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(scrlPaneWatchInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 1122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
+                            .addGap(58, 58, 58)
+                            .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(34, 34, 34)
+                            .addComponent(pnlAddUpdateDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(291, 291, 291)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(466, 466, 466))
+                .addGap(428, 428, Short.MAX_VALUE))
         );
         pnlWatchCollectionsLayout.setVerticalGroup(
             pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblWatchdetails)
+                .addGroup(pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
+                        .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 30, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlWatchCollectionsLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFldSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblWatchdetails, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrlPaneWatchInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlAddUpdateDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(421, Short.MAX_VALUE))
+                .addGroup(pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(pnlAddUpdateDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(460, 460, 460))
         );
 
         tabPaneWatchInfo.addTab("Collections", pnlWatchCollections);
@@ -1102,10 +1175,11 @@ public class Watch extends javax.swing.JFrame {
         getContentPane().add(pnlLoginScreen, "LoginScreen");
         getContentPane().add(pnlMainScreen, "MainScreen");
         getContentPane().add(pnlWatchInfoScreen, "WatchInfoScreen");
-        
+
         // Starting it with the MainScreen
         cardLayout.show(getContentPane(), "MainScreen");
     }
+
     private void Progress() {
         javax.swing.SwingWorker<Void, Integer> worker = new javax.swing.SwingWorker<>() {
             @Override
@@ -1125,28 +1199,29 @@ public class Watch extends javax.swing.JFrame {
 
             @Override
             protected void done() {
-               loadScreen("LoginScreen");  // Switch to login screen
+                loadScreen("LoginScreen");  // Switch to login screen
             }
         };
         worker.execute();
     }
+
     // Method to add watch data and populate the table 
-    private void watchTabelInfo(WatchIS watch){
+    private void watchTabelInfo(WatchIS watch) {
         watchIS.add(watch);
-        DefaultTableModel data = (DefaultTableModel)tblWatchInfo.getModel();
+        DefaultTableModel data = (DefaultTableModel) tblWatchInfo.getModel();
         data.addRow(new Object[]{
-        watch.getSerialNumber(), watch.getModelNumber(), watch.getName(), watch.getBrand(), watch.getPrice(), watch.getWarranty()
+            watch.getSerialNumber(), watch.getModelNumber(), watch.getName(), watch.getBrand(), watch.getPrice(), watch.getWarranty()
         });
-}
-    
-    private void initializeWatchData(){
-        watchIS= new LinkedList<>();
+    }
+
+    private void initializeWatchData() {
+        watchIS = new LinkedList<>();
         // Adding watch data in Table
-        watchTabelInfo(new WatchIS(1, 123,"Rolex", "Swiss Luxury", 230000, "2 years"));
-        watchTabelInfo(new WatchIS(2, 124,"Omega", "Swiss Luxury", 130000, "1 years"));
-        watchTabelInfo(new WatchIS(3, 125,"Cartier", "French Luxury", 140000, "2 years"));
-        watchTabelInfo(new WatchIS(4, 126,"Audemars Piguet", "French Luxury", 170000, "2 years"));
-        watchTabelInfo(new WatchIS(5, 127,"Patek Philippe", "Reverso", 140000, "2 years"));
+        watchTabelInfo(new WatchIS(1, 123, "Rolex", "Swiss Luxury", 230000, "2 years"));
+        watchTabelInfo(new WatchIS(2, 124, "Omega", "Swiss Luxury", 130000, "1 years"));
+        watchTabelInfo(new WatchIS(3, 125, "Cartier", "French Luxury", 140000, "2 years"));
+        watchTabelInfo(new WatchIS(4, 126, "Audemars Piguet", "French Luxury", 170000, "2 years"));
+        watchTabelInfo(new WatchIS(5, 127, "Patek Philippe", "Reverso", 140000, "2 years"));
     }
     private void txtFldUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFldUserNameActionPerformed
         // TODO add your handling code here:
@@ -1163,17 +1238,15 @@ public class Watch extends javax.swing.JFrame {
 
         // Check if username or password is empty
         if (username.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this,"\"Please fill in both the username and password.\"");
-        } 
-        // Check if username and password are incorrect
+            JOptionPane.showMessageDialog(this, "\"Please fill in both the username and password.\"");
+        } // Check if username and password are incorrect
         else if (!username.equals("santoshi") || !password.equals("santoshi")) {
-            JOptionPane.showMessageDialog(this,"The Input Does Not Matches. Please Try Again");
-        } 
-        // If credentials are correct, proceed to load the WatchInfo screen
+            JOptionPane.showMessageDialog(this, "The Input Does Not Matches. Please Try Again");
+        } // If credentials are correct, proceed to load the WatchInfo screen
         else {
 
             loadScreen("WatchInfoScreen"); // Load the WatchInfo screen
-}
+        }
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -1211,54 +1284,55 @@ public class Watch extends javax.swing.JFrame {
     private void tfWarrantyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfWarrantyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfWarrantyActionPerformed
-      
-    private void btnAddWatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddWatchActionPerformed
- // Initialize validation status
-        boolean isValid = true;
-    // Check if all fields are empty
-    if (tfSerialNumber.getText().isEmpty() || 
-        tfModelNumber.getText().isEmpty() ||
-        tfName.getText().isEmpty() || 
-        tfBrand.getText().isEmpty() || 
-        tfPrice.getText().isEmpty() || 
-        tfWarranty.getText().isEmpty()) {
 
-        // Display a single message for all empty fields
-        showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
-        lblErrorMessage.setVisible(true);
-        isValid = false;}
-       else{ 
-            // Validate the Serial Number field
-            boolean isValidSerialNumber = ValidationUtil.isValidSerialNumber(tfSerialNumber.getText());
-            if (tfSerialNumber.getText().length() > 2 ||!isValidSerialNumber) {
-            // Check for model number having at least 4 digits
-            showDialogBox("Check: Serial number must be 1 0r 2 digits or Serial number can only be in number.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+    private void btnAddWatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddWatchActionPerformed
+        // Initialize validation status
+        boolean isValid = true;
+        // Check if all fields are empty
+        if (tfSerialNumber.getText().isEmpty()
+                || tfModelNumber.getText().isEmpty()
+                || tfName.getText().isEmpty()
+                || tfBrand.getText().isEmpty()
+                || tfPrice.getText().isEmpty()
+                || tfWarranty.getText().isEmpty()) {
+
+            // Display a single message for all empty fields
+            showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
             lblErrorMessage.setVisible(true);
             isValid = false;
+        } else {
+            // Validate the Serial Number field
+            boolean isValidSerialNumber = ValidationUtil.isValidSerialNumber(tfSerialNumber.getText());
+            if (tfSerialNumber.getText().length() > 2 || !isValidSerialNumber) {
+                // Check for model number having at least 4 digits
+                showDialogBox("Check: Serial number must be 1 0r 2 digits or Serial number can only be in number.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+                lblErrorMessage.setVisible(true);
+                isValid = false;
             } else {
-            isValid &= validateField(
-                tfSerialNumber, 
-                "Serial Number",
-                lblErrorMessage,
-                "Invalid Serial Number format.", 
-                isValidSerialNumber
-            );}
-
+                isValid &= validateField(
+                        tfSerialNumber,
+                        "Serial Number",
+                        lblErrorMessage,
+                        "Invalid Serial Number format.",
+                        isValidSerialNumber
+                );
+            }
             // Validate Model Number
             boolean isValidModelNumber = ValidationUtil.isValidModelNumber(tfModelNumber.getText());
             if (tfModelNumber.getText().length() < 3 || !isValidModelNumber) {
-            // Check for model number having at least 4 digits
-            showDialogBox("Check: Model number can only be in Number or Model number must be 3 digits.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
-            lblErrorMessage.setVisible(true);
-            isValid = false;
+                // Check for model number having at least 4 digits
+                showDialogBox("Check: Model number can only be in Number or Model number must be 3 digits.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+                lblErrorMessage.setVisible(true);
+                isValid = false;
             } else {
-            isValid &= validateField(
-                tfModelNumber, 
-                "Model Number", 
-                lblErrorMessage, 
-                "Must contain only numbers.", 
-                isValidModelNumber
-            );}
+                isValid &= validateField(
+                        tfModelNumber,
+                        "Model Number",
+                        lblErrorMessage,
+                        "Must contain only numbers.",
+                        isValidModelNumber
+                );
+            }
             // Validate Name
             boolean isValidName = ValidationUtil.isValidName(tfName.getText());
             if (!isValidName) {
@@ -1267,24 +1341,22 @@ public class Watch extends javax.swing.JFrame {
                 isValid = false;
             } else {
                 isValid &= validateField(
-                    tfName, 
-                    "Name", 
-                    lblErrorMessage, 
-                    "Must contain only alphabets", 
-                    isValidName
+                        tfName,
+                        "Name",
+                        lblErrorMessage,
+                        "Must contain only alphabets",
+                        isValidName
                 );
             }
-
             // Validate Brand
             boolean isValidBrand = ValidationUtil.isValidBrand(tfBrand.getText());
             isValid &= validateField(
-                tfBrand, 
-                "Brand", 
-                lblErrorMessage, 
-                "Must be only alphabets", 
-                isValidBrand
+                    tfBrand,
+                    "Brand",
+                    lblErrorMessage,
+                    "Must be only alphabets",
+                    isValidBrand
             );
-
             // Validate price
             boolean isValidPrice = ValidationUtil.isValidPrice(tfPrice.getText());
             // Validate that the Price contains only numbers
@@ -1294,286 +1366,254 @@ public class Watch extends javax.swing.JFrame {
                 isValid = false;
             } else {
                 isValid &= validateField(
-                    tfPrice, 
-                    "Price", 
-                    lblErrorMessage, 
-                    "Must contain only numbers.", 
-                    isValidPrice
+                        tfPrice,
+                        "Price",
+                        lblErrorMessage,
+                        "Must contain only numbers.",
+                        isValidPrice
                 );
             }
-
             // Validate Warranty
             boolean isValidWarranty = ValidationUtil.isValidWrranty(tfWarranty.getText());
             isValid &= validateField(
-                tfWarranty, 
-                "Warranty", 
-                lblErrorMessage, 
-                "Warranty must be a valid time period", 
-                isValidWarranty
+                    tfWarranty,
+                    "Warranty",
+                    lblErrorMessage,
+                    "Warranty must be a valid time period",
+                    isValidWarranty
             );
-
             // If all fields are valid, proceed with adding the watch
             if (isValid) {
                 // Create a watchIS instance
                 WatchIS newwatch = new WatchIS(
-                    Integer.parseInt(tfSerialNumber.getText().trim()),
-                    Integer.parseInt(tfModelNumber.getText().trim()),
-                    tfName.getText().trim(),
-                    tfBrand.getText().trim(),
-                    Double.parseDouble(tfPrice.getText().trim()),
-                    tfWarranty.getText().trim()
+                        Integer.parseInt(tfSerialNumber.getText().trim()),
+                        Integer.parseInt(tfModelNumber.getText().trim()),
+                        tfName.getText().trim(),
+                        tfBrand.getText().trim(),
+                        Double.parseDouble(tfPrice.getText().trim()),
+                        tfWarranty.getText().trim()
                 );
-
-
-
-            if (checkDuplicateWatch(newwatch)) {
-                showDialogBox("Model Number or Serial Number already exists.", "Duplicate Entry", JOptionPane.ERROR_MESSAGE);
-            } else {
-                // Add the watch if no duplicate is found
-                watchIS.add(newwatch);
-                clearWatchForm(); 
-                loadListToTable(watchIS);
-                showDialogBox("Watch Information added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                if (checkDuplicateWatch(newwatch)) {
+                    showDialogBox("Model Number or Serial Number already exists.", "Duplicate Entry", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Add the watch if no duplicate is found
+                    watchIS.add(newwatch);
+                    clearWatchForm();
+                    loadListToTable(watchIS);
+                    showDialogBox("Watch Information added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                }
+                // If validation fails, show this dialog box
+                if (!isValid) { // Assuming 'isValid' is the validation condition
+                    showDialogBox("Please enter the asked value in the text field correctly.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+                }
             }
-
-            // If validation fails, show this dialog box
-            if (!isValid) { // Assuming 'isValid' is the validation condition
-                showDialogBox("Please enter the asked value in the text field correctly.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
-            }
-
-            }
-            }  
+        }
     }//GEN-LAST:event_btnAddWatchActionPerformed
- private boolean validateField(JTextField textField, String fieldName, JLabel errorLbl, String errorMsg, boolean isValidFormat) {
-    // Check if the text field is empty
-    if (ValidationUtil.isNullOrEmpty(textField.getText())) {
-        errorLbl.setText("Textfields cannot be empty!");  // Display a specific message for this field
-        errorLbl.setVisible(false);
-
-        // Hide the error message after 3 seconds (3000 milliseconds)
-        Timer timer = new Timer(1000, e -> errorLbl.setVisible(false));
-        timer.setRepeats(false); // Ensure the timer only runs once
-        timer.start();
-
-        return false;
-    } else if (!isValidFormat) {  // Check if the input format is invalid
-        errorLbl.setText(errorMsg);  // Display the provided error message
-        errorLbl.setVisible(true);
-
-        // Hide the error message after 3 seconds (3000 milliseconds)
-        Timer timer = new Timer(1000, e -> errorLbl.setVisible(false));
-        timer.setRepeats(false); // Ensure the timer only runs once
-        timer.start();
-
-        return false;
-    } else {
-        errorLbl.setVisible(false);  // Hide error message if valid
-        return true;
+    private boolean validateField(JTextField textField, String fieldName, JLabel errorLbl, String errorMsg, boolean isValidFormat) {
+        // Check if the text field is empty
+        if (ValidationUtil.isNullOrEmpty(textField.getText())) {
+            errorLbl.setText("Textfields cannot be empty!");  // Display a specific message for this field
+            errorLbl.setVisible(false);
+            // Hide the error message after 3 seconds (3000 milliseconds)
+            Timer timer = new Timer(1000, e -> errorLbl.setVisible(false));
+            timer.setRepeats(false); // Ensure the timer only runs once
+            timer.start();
+            return false;
+        } else if (!isValidFormat) {  // Check if the input format is invalid
+            errorLbl.setText(errorMsg);  // Display the provided error message
+            errorLbl.setVisible(true);
+            // Hide the error message after 3 seconds (3000 milliseconds)
+            Timer timer = new Timer(1000, e -> errorLbl.setVisible(false));
+            timer.setRepeats(false); // Ensure the timer only runs once
+            timer.start();
+            return false;
+        } else {
+            errorLbl.setVisible(false);  // Hide error message if valid
+            return true;
+        }
     }
-}
 
-
-     private void showDialogBox(String message, String title, int messageType) {
+    private void showDialogBox(String message, String title, int messageType) {
         JOptionPane.showMessageDialog(this, message, title, messageType);
     }
-    private boolean checkDuplicateWatch(WatchIS watch) {
-    return watchIS.stream()
-            .anyMatch(existingWatch -> 
-                existingWatch.getSerialNumber() == watch.getSerialNumber() ||
-                existingWatch.getModelNumber() == watch.getModelNumber());
-}
 
-     private void clearWatchForm() {
+    private boolean checkDuplicateWatch(WatchIS watch) {
+        return watchIS.stream()
+                .anyMatch(existingWatch
+                        -> existingWatch.getSerialNumber() == watch.getSerialNumber()
+                || existingWatch.getModelNumber() == watch.getModelNumber());
+    }
+
+    private void clearWatchForm() {
         tfSerialNumber.setText("");
         tfModelNumber.setText("");
         tfName.setText("");
         tfBrand.setText("");
         tfPrice.setText("");
         tfWarranty.setText("");
+        txtFldSearch.setText("");
     }
-      private void loadListToTable(List<WatchIS> watch) {
-        DefaultTableModel model = (DefaultTableModel) tblWatchInfo.getModel();
 
+    private void loadListToTable(List<WatchIS> watchIS) {
+        DefaultTableModel model = (DefaultTableModel) tblWatchInfo.getModel();
         // Clear existing rows if needed
         model.setRowCount(0);
 
         // Populate the table with watch data
-        watchIS.forEach(watchIS -> model.addRow(new Object[]{
-            watchIS.getSerialNumber(),
-            watchIS.getModelNumber(),
-            watchIS.getName(),
-            watchIS.getBrand(), 
-            watchIS.getPrice(),
-            watchIS.getWarranty(),
-        }));
+        watchIS.forEach(watch -> model.addRow(new Object[]{
+            watch.getSerialNumber(),
+            watch.getModelNumber(),
+            watch.getName(),
+            watch.getBrand(),
+            watch.getPrice(),
+            watch.getWarranty(),}));
     }
-
-
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // Initialize validation status
         boolean isValid = true;
         // Check if all fields are empty
-    if (tfSerialNumber.getText().isEmpty() || 
-        tfModelNumber.getText().isEmpty() ||
-        tfName.getText().isEmpty() || 
-        tfBrand.getText().isEmpty() || 
-        tfPrice.getText().isEmpty() || 
-        tfWarranty.getText().isEmpty()) {
+        if (tfSerialNumber.getText().isEmpty()
+                || tfModelNumber.getText().isEmpty()
+                || tfName.getText().isEmpty()
+                || tfBrand.getText().isEmpty()
+                || tfPrice.getText().isEmpty()
+                || tfWarranty.getText().isEmpty()) {
+            // Display a single message for all empty fields
+            showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+            lblErrorMessage.setVisible(true);
+            isValid = false;
+        } else {
+            int selectedRowIndex = tblWatchInfo.getSelectedRow();
 
-        // Display a single message for all empty fields
-        showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
-        lblErrorMessage.setVisible(true);
-        isValid = false;}
-       else{
-        int selectedRowIndex = tblWatchInfo.getSelectedRow();
-
-        // Ensure a row is selected
-        if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a watch to update.", "Selection Error", JOptionPane.ERROR_MESSAGE);
-            return; // Exit early if no row is selected
-        }
-
-        try {
-            // Retrieve the watch object from the ArrayList
-            WatchIS watchToUpdate = watchIS.get(selectedRowIndex);
-
+            // Ensure a row is selected
+            if (selectedRowIndex < 0) {
+                JOptionPane.showMessageDialog(null, "Please select a watch to update.", "Selection Error", JOptionPane.ERROR_MESSAGE);
+                return; // Exit early if no row is selected
+            }
             try {
-                // Validate and set Serial Number
-                int serialNumber = Integer.parseInt(tfSerialNumber.getText().trim());
-                boolean serialExists = watchIS.stream()
-                    .anyMatch(watch -> watch.getSerialNumber() == serialNumber && watch != watchToUpdate);
-                if (serialExists) {
-                    JOptionPane.showMessageDialog(null, "Serial number already exists. Please enter a unique serial number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-                    isValid = false;
-                } else {
-                    watchToUpdate.setSerialNumber(serialNumber);
-                }
+                // Retrieve the watch object from the ArrayList
+                WatchIS watchToUpdate = watchIS.get(selectedRowIndex);
 
-                // Validate and set Model Number
-                int modelNumber = Integer.parseInt(tfModelNumber.getText().trim());
-                if (String.valueOf(modelNumber).length() < 3) {
-                    JOptionPane.showMessageDialog(null, "Model number must be at least 3 digits.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                try {
+                    // Validate and set Serial Number
+                    int serialNumber = Integer.parseInt(tfSerialNumber.getText().trim());
+                    boolean serialExists = watchIS.stream()
+                            .anyMatch(watch -> watch.getSerialNumber() == serialNumber && watch != watchToUpdate);
+                    if (serialExists) {
+                        JOptionPane.showMessageDialog(null, "Serial number already exists. Please enter a unique serial number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        isValid = false;
+                    } else {
+                        watchToUpdate.setSerialNumber(serialNumber);
+                    }
+                    // Validate and set Model Number
+                    int modelNumber = Integer.parseInt(tfModelNumber.getText().trim());
+                    if (String.valueOf(modelNumber).length() < 3) {
+                        JOptionPane.showMessageDialog(null, "Model number must be at least 3 digits.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        isValid = false;
+                    } else if (watchIS.stream().anyMatch(watch -> watch.getModelNumber() == modelNumber && watch != watchToUpdate)) {
+                        JOptionPane.showMessageDialog(null, "Model number already exists. Please enter a unique model number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        isValid = false;
+                    } else {
+                        watchToUpdate.setModelNumber(modelNumber);
+                    }
+                    boolean isValidName = ValidationUtil.isValidName(tfName.getText());
+                    // Validate and set Name
+                    String name = tfName.getText().trim();
+                    if (!isValidName) {
+                        showDialogBox("Name must contain only alphabets. Please enter a valid name.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+                        lblErrorMessage.setVisible(true);
+                        isValid = false;
+                    } else {
+                        watchToUpdate.setName(name);
+                    }
+                    // Validate and set Brand
+                    String brand = tfBrand.getText().trim();
+                    if (brand.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Brand cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        isValid = false;
+                    } else {
+                        watchToUpdate.setBrand(brand);
+                    }
+                    // Validate and set Price
+                    double price = Double.parseDouble(tfPrice.getText().trim());
+                    if (price <= 0) {
+                        JOptionPane.showMessageDialog(null, "Price must be greater than zero.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        isValid = false;
+                    } else {
+                        watchToUpdate.setPrice(price);
+                    }
+                    // Validate and set Warranty
+                    String warranty = tfWarranty.getText().trim();
+                    if (warranty.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Warranty cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        isValid = false;
+                    } else {
+                        watchToUpdate.setWarranty(warranty);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Please enter valid numeric values for Serial Number, Model Number, and Price.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                     isValid = false;
-                } else if (watchIS.stream().anyMatch(watch -> watch.getModelNumber() == modelNumber && watch != watchToUpdate)) {
-                    JOptionPane.showMessageDialog(null, "Model number already exists. Please enter a unique model number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "An unexpected error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     isValid = false;
-                } else {
-                    watchToUpdate.setModelNumber(modelNumber);
                 }
-                
-                boolean isValidName = ValidationUtil.isValidName(tfName.getText());
-                // Validate and set Name
-                String name = tfName.getText().trim();
-                if (!isValidName) {
-                showDialogBox("Name must contain only alphabets. Please enter a valid name.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
-                lblErrorMessage.setVisible(true);
-                isValid = false;
-                } else {
-                    watchToUpdate.setName(name);
+                // Perform actions only if all validations pass
+                if (isValid) {
+                    // Reload the table to reflect updated data
+                    loadListToTable(watchIS);
+                    // Clear form after updating
+                    clearWatchForm();
+                    // Show success message
+                    JOptionPane.showMessageDialog(null, "Watch Information updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
-
-                // Validate and set Brand
-                String brand = tfBrand.getText().trim();
-                if (brand.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Brand cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-                    isValid = false;
-                } else {
-                    watchToUpdate.setBrand(brand);
-                }
-
-                // Validate and set Price
-                double price = Double.parseDouble(tfPrice.getText().trim());
-                if (price <= 0) {
-                    JOptionPane.showMessageDialog(null, "Price must be greater than zero.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-                    isValid = false;
-                } else {
-                    watchToUpdate.setPrice(price);
-                }
-
-                // Validate and set Warranty
-                String warranty = tfWarranty.getText().trim();
-                if (warranty.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Warranty cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-                    isValid = false;
-                } else {
-                    watchToUpdate.setWarranty(warranty);
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Please enter valid numeric values for Serial Number, Model Number, and Price.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                isValid = false;
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "An unexpected error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                isValid = false;
+                // Handle potential errors
+                JOptionPane.showMessageDialog(null, "An error occurred while updating the watch. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            // Perform actions only if all validations pass
-            if (isValid) {
-                // Reload the table to reflect updated data
-                loadListToTable(watchIS);
-
-                // Clear form after updating
-                clearWatchForm();
-
-                // Show success message
-                JOptionPane.showMessageDialog(null, "Watch Information updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (Exception e) {
-            // Handle potential errors
-            JOptionPane.showMessageDialog(null, "An error occurred while updating the watch. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-    }
-
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-                                            
-    // Get the selected row index
-    int selectedRowIndex = tblWatchInfo.getSelectedRow();
 
-    // Check if a row is selected
-    if (selectedRowIndex < 0) {
-        showDialogBox("Please select a watch entry to delete.", "No Selection", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    // Confirm the delete operation
-    int confirmation = JOptionPane.showConfirmDialog(
-        null, 
-        "Are you sure you want to delete this watch?", 
-        "Confirm Delete", 
-        JOptionPane.YES_NO_OPTION, 
-        JOptionPane.WARNING_MESSAGE
-    );
-
-    // If the user confirms, proceed with deletion
-    if (confirmation == JOptionPane.YES_OPTION) {
-        try {
-            // Remove the corresponding entry from the ArrayList (watchIS)
-            WatchIS watchToDelete = watchIS.get(selectedRowIndex); // Retrieve the watch object
-            watchIS.remove(selectedRowIndex); // Remove it from the List
-
-            // Remove the selected row from the table model
-            DefaultTableModel model = (DefaultTableModel) tblWatchInfo.getModel();
-            model.removeRow(selectedRowIndex);
-
-            // Reload the table to reflect the changes
-            loadListToTable(watchIS);
-
-            // Show success message
-            showDialogBox(
-                "Watch entry with Model Number: " + watchToDelete.getModelNumber() + " deleted successfully.", 
-                "Success", 
-                JOptionPane.INFORMATION_MESSAGE
-            );
-        } catch (Exception e) {
-            // Handle potential errors
-            showDialogBox("An error occurred while deleting the watch. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Get the selected row index
+        int selectedRowIndex = tblWatchInfo.getSelectedRow();
+        // Check if a row is selected
+        if (selectedRowIndex < 0) {
+            showDialogBox("Please select a watch entry to delete.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-    }
+        // Confirm the delete operation
+        int confirmation = JOptionPane.showConfirmDialog(
+                null,
+                "Are you sure you want to delete this watch?",
+                "Confirm Delete",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+        // If the user confirms, proceed with deletion
+        if (confirmation == JOptionPane.YES_OPTION) {
+            try {
+                // Remove the corresponding entry from the ArrayList (watchIS)
+                WatchIS watchToDelete = watchIS.get(selectedRowIndex); // Retrieve the watch object
+                watchIS.remove(selectedRowIndex); // Remove it from the List
+                // Remove the selected row from the table model
+                DefaultTableModel model = (DefaultTableModel) tblWatchInfo.getModel();
+                model.removeRow(selectedRowIndex);
 
-
+                // Reload the table to reflect the changes
+                loadListToTable(watchIS);
+                // Show success message
+                showDialogBox(
+                        "Watch entry with Model Number: " + watchToDelete.getModelNumber() + " deleted successfully.",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            } catch (Exception e) {
+                // Handle potential errors
+                showDialogBox("An error occurred while deleting the watch. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tfSerialNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSerialNumberActionPerformed
@@ -1581,48 +1621,74 @@ public class Watch extends javax.swing.JFrame {
     }//GEN-LAST:event_tfSerialNumberActionPerformed
 
     private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayActionPerformed
-                // Ensure a row is selected in the table
+        // Ensure a row is selected in the table
         int selectedRowIndex = tblWatchInfo.getSelectedRow();
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(null, "Please select a watch from the table.", "No Selection", JOptionPane.WARNING_MESSAGE);
             return; // Exit if no row is selected
         }
-
         try {
             // Retrieve the watch object from the LinkedList using the selected row index
             WatchIS display = watchIS.get(selectedRowIndex);
 
             // Prepare the watch details for display
             String watchDetails = String.format(
-                "Serial Number: %d\nModel Number: %d\nName: %s\nBrand: %s\nPrice: %.2f\nWarranty: %s",
-                display.getSerialNumber(),
-                display.getModelNumber(),
-                display.getName(),
-                display.getBrand(),
-                display.getPrice(),
-                display.getWarranty()
+                    "Serial Number: %d\nModel Number: %d\nName: %s\nBrand: %s\nPrice: %.2f\nWarranty: %s",
+                    display.getSerialNumber(),
+                    display.getModelNumber(),
+                    display.getName(),
+                    display.getBrand(),
+                    display.getPrice(),
+                    display.getWarranty()
             );
-
             // Display the watch details in a dialog box
             JOptionPane.showMessageDialog(null, watchDetails, "Watch Details", JOptionPane.INFORMATION_MESSAGE);
-
         } catch (Exception e) {
             // Handle any potential errors
             JOptionPane.showMessageDialog(null, "An error occurred while retrieving the watch details: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_btnDisplayActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         clearWatchForm();
     }//GEN-LAST:event_btnClearActionPerformed
- 
+
+    private void btnMergeSortBySerialNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMergeSortBySerialNumberActionPerformed
+        // TODO add your handling code here:
+        List<WatchIS> sortedList = mergeSort.sortBySerialNumber(watchIS, false);
+        loadListToTable(sortedList);
+    }//GEN-LAST:event_btnMergeSortBySerialNumberActionPerformed
+
+    private void btnSelectionSortByPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectionSortByPriceActionPerformed
+        // TODO add your handling code here:
+        List<WatchIS> sortedList = selectionSort.sortByPrice(watchIS, false);
+        loadListToTable(sortedList);
+    }//GEN-LAST:event_btnSelectionSortByPriceActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        String name = txtFldSearch.getText().trim(); // Get the name input from the text field
+
+        if (name.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a name to search for.");
+            return;
+        }
+         List<WatchIS> sortedList = selectionSort.sortByName(watchIS, false);
+        // Perform binary search for the watch with the entered name
+        WatchIS search = binarySearch.searchByName(sortedList, name);
+        loadListToTable(sortedList);
+
+        // Show result
+        if (search != null) {
+            JOptionPane.showMessageDialog(this, "Found: " + search.getName() + " - " + search.getBrand());
+        } else {
+            JOptionPane.showMessageDialog(this, "Watch with name '" + name + "' not found.");
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
     /**
      * @param args the command line arguments
      */
-   
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1647,14 +1713,11 @@ public class Watch extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
-                Watch IS = new Watch();
-
+        Watch IS = new Watch();
         /* Create and display the form */
-       java.awt.EventQueue.invokeLater(() -> {
+        java.awt.EventQueue.invokeLater(() -> {
             IS.setVisible(true);
         });
-
         IS.Progress();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -1671,6 +1734,9 @@ public class Watch extends javax.swing.JFrame {
     private javax.swing.JButton btnDisplay;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnMergeSortBySerialNumber;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSelectionSortByPrice;
     private javax.swing.JButton btnSend;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBox ckBoxRemember;
@@ -1750,6 +1816,7 @@ public class Watch extends javax.swing.JFrame {
     private javax.swing.JTextField tfWarranty;
     private javax.swing.JTextField txtFldEmail;
     private javax.swing.JTextField txtFldName;
+    private javax.swing.JTextField txtFldSearch;
     private javax.swing.JTextField txtFldUserName;
     // End of variables declaration//GEN-END:variables
 }
