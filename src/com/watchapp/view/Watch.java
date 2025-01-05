@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import com.watchapp.controller.algorithm.SelectionSort;
 import com.watchapp.controller.algorithm.MergeSort;
 import com.watchapp.controller.algorithm.BinarySearch;
+import com.watchapp.controller.algorithm.InsertionSort;
 
 /**
  *
@@ -32,6 +33,7 @@ public class Watch extends javax.swing.JFrame {
     private final SelectionSort selectionSort;
     private final MergeSort mergeSort;
     private final BinarySearch binarySearch;
+    private final InsertionSort insertionSort;
 
     public Watch() {
         initComponents();
@@ -42,6 +44,7 @@ public class Watch extends javax.swing.JFrame {
         selectionSort = new SelectionSort();
         mergeSort = new MergeSort();
         binarySearch = new BinarySearch();
+        insertionSort = new InsertionSort();
     }
 
     /**
@@ -123,8 +126,9 @@ public class Watch extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         pnlAddUpdateDelete = new javax.swing.JPanel();
         btnMergeSortBySerialNumber = new javax.swing.JButton();
-        btnSelectionSortByPrice = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
+        btnInsertionSortByModelNumber = new javax.swing.JButton();
+        btnSelectionSortByPrice = new javax.swing.JButton();
         lblErrorMessage = new javax.swing.JLabel();
         txtFldSearch = new javax.swing.JTextField();
         pnlContactUs = new javax.swing.JPanel();
@@ -193,6 +197,7 @@ public class Watch extends javax.swing.JFrame {
         btnLogin.setFont(new java.awt.Font("Devanagari MT", 1, 14)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(0, 51, 153));
         btnLogin.setText("LOGIN");
+        btnLogin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -835,16 +840,6 @@ public class Watch extends javax.swing.JFrame {
             }
         });
 
-        btnSelectionSortByPrice.setBackground(new java.awt.Color(153, 153, 153));
-        btnSelectionSortByPrice.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        btnSelectionSortByPrice.setText("Sort Price");
-        btnSelectionSortByPrice.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnSelectionSortByPrice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelectionSortByPriceActionPerformed(evt);
-            }
-        });
-
         btnSearch.setBackground(new java.awt.Color(153, 153, 153));
         btnSearch.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         btnSearch.setText("Search");
@@ -852,6 +847,26 @@ public class Watch extends javax.swing.JFrame {
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
+            }
+        });
+
+        btnInsertionSortByModelNumber.setBackground(new java.awt.Color(153, 153, 153));
+        btnInsertionSortByModelNumber.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        btnInsertionSortByModelNumber.setText("Sort ModelNumber");
+        btnInsertionSortByModelNumber.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnInsertionSortByModelNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInsertionSortByModelNumberActionPerformed(evt);
+            }
+        });
+
+        btnSelectionSortByPrice.setBackground(new java.awt.Color(153, 153, 153));
+        btnSelectionSortByPrice.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        btnSelectionSortByPrice.setText("Sort Price");
+        btnSelectionSortByPrice.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnSelectionSortByPrice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectionSortByPriceActionPerformed(evt);
             }
         });
 
@@ -866,21 +881,26 @@ public class Watch extends javax.swing.JFrame {
                         .addComponent(btnMergeSortBySerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddUpdateDeleteLayout.createSequentialGroup()
+                        .addComponent(btnInsertionSortByModelNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddUpdateDeleteLayout.createSequentialGroup()
                         .addGroup(pnlAddUpdateDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSelectionSortByPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnSelectionSortByPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(39, 39, 39))))
         );
         pnlAddUpdateDeleteLayout.setVerticalGroup(
             pnlAddUpdateDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddUpdateDeleteLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(24, 24, 24)
                 .addComponent(btnMergeSortBySerialNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnInsertionSortByModelNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(btnSelectionSortByPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
 
         lblErrorMessage.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
@@ -911,7 +931,7 @@ public class Watch extends javax.swing.JFrame {
                             .addComponent(pnlAddUpdateDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(291, 291, 291)
                 .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(428, 428, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlWatchCollectionsLayout.setVerticalGroup(
             pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -929,11 +949,11 @@ public class Watch extends javax.swing.JFrame {
                 .addComponent(scrlPaneWatchInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(pnlWatchCollectionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(pnlAddUpdateDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlWatchCollectionsLayout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(pnlAddUpdateDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(460, 460, 460))
         );
 
@@ -1271,6 +1291,8 @@ public class Watch extends javax.swing.JFrame {
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "\"This Page is Not Functional Currently.\"");
+
     }//GEN-LAST:event_btnSendActionPerformed
 
     private void tfBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBrandActionPerformed
@@ -1297,7 +1319,7 @@ public class Watch extends javax.swing.JFrame {
                 || tfWarranty.getText().isEmpty()) {
 
             // Display a single message for all empty fields
-            showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+            showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed", JOptionPane.INFORMATION_MESSAGE);
             lblErrorMessage.setVisible(true);
             isValid = false;
         } else {
@@ -1480,7 +1502,7 @@ public class Watch extends javax.swing.JFrame {
                 || tfPrice.getText().isEmpty()
                 || tfWarranty.getText().isEmpty()) {
             // Display a single message for all empty fields
-            showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+            showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed", JOptionPane.INFORMATION_MESSAGE);
             lblErrorMessage.setVisible(true);
             isValid = false;
         } else {
@@ -1488,7 +1510,7 @@ public class Watch extends javax.swing.JFrame {
 
             // Ensure a row is selected
             if (selectedRowIndex < 0) {
-                JOptionPane.showMessageDialog(null, "Please select a watch to update.", "Selection Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please select a watch to update.", "Selection Error", JOptionPane.INFORMATION_MESSAGE);
                 return; // Exit early if no row is selected
             }
             try {
@@ -1512,7 +1534,7 @@ public class Watch extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Model number must be at least 3 digits.", "Validation Error", JOptionPane.ERROR_MESSAGE);
                         isValid = false;
                     } else if (watchIS.stream().anyMatch(watch -> watch.getModelNumber() == modelNumber && watch != watchToUpdate)) {
-                        JOptionPane.showMessageDialog(null, "Model number already exists. Please enter a unique model number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Model number already exists. Please enter a unique model number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
                         isValid = false;
                     } else {
                         watchToUpdate.setModelNumber(modelNumber);
@@ -1580,7 +1602,7 @@ public class Watch extends javax.swing.JFrame {
         int selectedRowIndex = tblWatchInfo.getSelectedRow();
         // Check if a row is selected
         if (selectedRowIndex < 0) {
-            showDialogBox("Please select a watch entry to delete.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            showDialogBox("Please select a watch entry to delete.", "No Selection", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         // Confirm the delete operation
@@ -1589,7 +1611,7 @@ public class Watch extends javax.swing.JFrame {
                 "Are you sure you want to delete this watch?",
                 "Confirm Delete",
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE
+                JOptionPane.INFORMATION_MESSAGE
         );
         // If the user confirms, proceed with deletion
         if (confirmation == JOptionPane.YES_OPTION) {
@@ -1673,7 +1695,7 @@ public class Watch extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please enter a name to search for.");
             return;
         }
-         List<WatchIS> sortedList = selectionSort.sortByName(watchIS, false);
+        List<WatchIS> sortedList = selectionSort.sortByName(watchIS, false);
         // Perform binary search for the watch with the entered name
         WatchIS search = binarySearch.searchByName(sortedList, name);
         loadListToTable(sortedList);
@@ -1685,6 +1707,12 @@ public class Watch extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Watch with name '" + name + "' not found.");
         }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnInsertionSortByModelNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertionSortByModelNumberActionPerformed
+        // TODO add your handling code here:
+        List<WatchIS> sortedList = insertionSort.insertionsortByModelNumber(watchIS, false);
+        loadListToTable(sortedList);
+    }//GEN-LAST:event_btnInsertionSortByModelNumberActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1732,6 +1760,7 @@ public class Watch extends javax.swing.JFrame {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnDisplay;
+    private javax.swing.JButton btnInsertionSortByModelNumber;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnMergeSortBySerialNumber;

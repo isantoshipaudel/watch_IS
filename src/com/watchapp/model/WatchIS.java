@@ -4,22 +4,20 @@ package com.watchapp.model;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
- * @author Santoshi Paudel
- * LMU ID: 23048656
+ * @author Santoshi Paudel LMU ID: 23048656
  */
 public class WatchIS {
+
     private int SerialNumber;
     private int ModelNumber;
     private String Name;
     private String Brand;
     private double Price;
     private String Warranty;
-    
-    //constructor for initialization of variables
 
+    //constructor for initialization of variables
     public WatchIS(int SerialNumber, int ModelNumber, String Name, String Brand, double Price, String Warranty) {
         this.SerialNumber = SerialNumber;
         this.ModelNumber = ModelNumber;
@@ -77,7 +75,5 @@ public class WatchIS {
     public void setWarranty(String Warranty) {
         this.Warranty = Warranty;
     }
-    
-    
-    
+
 }
