@@ -1226,7 +1226,7 @@ public class Watch extends javax.swing.JFrame {
     }
 
     // Method to add watch data and populate the table 
-    private void watchTabelInfo(WatchIS watch) {
+    private void watchTableInfo(WatchIS watch) {
         watchIS.add(watch);
         DefaultTableModel data = (DefaultTableModel) tblWatchInfo.getModel();
         data.addRow(new Object[]{
@@ -1237,11 +1237,11 @@ public class Watch extends javax.swing.JFrame {
     private void initializeWatchData() {
         watchIS = new LinkedList<>();
         // Adding watch data in Table
-        watchTabelInfo(new WatchIS(1, 123, "Rolex", "Swiss Luxury", 230000, "2 years"));
-        watchTabelInfo(new WatchIS(2, 124, "Omega", "Swiss Luxury", 130000, "1 years"));
-        watchTabelInfo(new WatchIS(3, 125, "Cartier", "French Luxury", 140000, "2 years"));
-        watchTabelInfo(new WatchIS(4, 126, "Audemars Piguet", "French Luxury", 170000, "2 years"));
-        watchTabelInfo(new WatchIS(5, 127, "Patek Philippe", "Reverso", 140000, "2 years"));
+        watchTableInfo(new WatchIS(1, 123, "Rolex", "Swiss Luxury", 230000, "2 years"));
+        watchTableInfo(new WatchIS(2, 124, "Omega", "Swiss Luxury", 130000, "1 years"));
+        watchTableInfo(new WatchIS(3, 125, "Cartier", "French Luxury", 140000, "2 years"));
+        watchTableInfo(new WatchIS(4, 126, "Audemars Piguet", "French Luxury", 170000, "2 years"));
+        watchTableInfo(new WatchIS(5, 127, "Patek Philippe", "Reverso", 140000, "2 years"));
     }
     private void txtFldUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFldUserNameActionPerformed
         // TODO add your handling code here:
@@ -1319,7 +1319,8 @@ public class Watch extends javax.swing.JFrame {
                 || tfWarranty.getText().isEmpty()) {
 
             // Display a single message for all empty fields
-            showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed", JOptionPane.INFORMATION_MESSAGE);
+            showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed",
+                    JOptionPane.INFORMATION_MESSAGE);
             lblErrorMessage.setVisible(true);
             isValid = false;
         } else {
@@ -1327,7 +1328,8 @@ public class Watch extends javax.swing.JFrame {
             boolean isValidSerialNumber = ValidationUtil.isValidSerialNumber(tfSerialNumber.getText());
             if (tfSerialNumber.getText().length() > 2 || !isValidSerialNumber) {
                 // Check for model number having at least 4 digits
-                showDialogBox("Check: Serial number must be 1 0r 2 digits or Serial number can only be in number.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+                showDialogBox("Check: Serial number must be 1 0r 2 digits or Serial number can only be in number.",
+                        "Validation Failed", JOptionPane.ERROR_MESSAGE);
                 lblErrorMessage.setVisible(true);
                 isValid = false;
             } else {
@@ -1343,7 +1345,8 @@ public class Watch extends javax.swing.JFrame {
             boolean isValidModelNumber = ValidationUtil.isValidModelNumber(tfModelNumber.getText());
             if (tfModelNumber.getText().length() < 3 || !isValidModelNumber) {
                 // Check for model number having at least 4 digits
-                showDialogBox("Check: Model number can only be in Number or Model number must be 3 digits.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+                showDialogBox("Check: Model number can only be in Number or Model number must be 3 digits.",
+                        "Validation Failed", JOptionPane.ERROR_MESSAGE);
                 lblErrorMessage.setVisible(true);
                 isValid = false;
             } else {
@@ -1358,7 +1361,8 @@ public class Watch extends javax.swing.JFrame {
             // Validate Name
             boolean isValidName = ValidationUtil.isValidName(tfName.getText());
             if (!isValidName) {
-                showDialogBox("Name must contain only alphabets. Please enter a valid name.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+                showDialogBox("Name must contain only alphabets. Please enter a valid name.",
+                        "Validation Failed", JOptionPane.ERROR_MESSAGE);
                 lblErrorMessage.setVisible(true);
                 isValid = false;
             } else {
@@ -1372,6 +1376,9 @@ public class Watch extends javax.swing.JFrame {
             }
             // Validate Brand
             boolean isValidBrand = ValidationUtil.isValidBrand(tfBrand.getText());
+            if (!isValidBrand) {
+                showDialogBox("Brand must be a valid Name.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+            }
             isValid &= validateField(
                     tfBrand,
                     "Brand",
@@ -1383,7 +1390,8 @@ public class Watch extends javax.swing.JFrame {
             boolean isValidPrice = ValidationUtil.isValidPrice(tfPrice.getText());
             // Validate that the Price contains only numbers
             if (!isValidPrice) {
-                showDialogBox("Price must be a valid number. Please enter a numeric value.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+                showDialogBox("Price must be a valid number. Please enter a numeric value.",
+                        "Validation Failed", JOptionPane.ERROR_MESSAGE);
                 lblErrorMessage.setVisible(true);
                 isValid = false;
             } else {
@@ -1416,17 +1424,20 @@ public class Watch extends javax.swing.JFrame {
                         tfWarranty.getText().trim()
                 );
                 if (checkDuplicateWatch(newwatch)) {
-                    showDialogBox("Model Number or Serial Number already exists.", "Duplicate Entry", JOptionPane.ERROR_MESSAGE);
+                    showDialogBox("Model Number or Serial Number already exists.", "Duplicate Entry",
+                            JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Add the watch if no duplicate is found
                     watchIS.add(newwatch);
                     clearWatchForm();
                     loadListToTable(watchIS);
-                    showDialogBox("Watch Information added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    showDialogBox("Watch Information added successfully.", "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
                 // If validation fails, show this dialog box
                 if (!isValid) { // Assuming 'isValid' is the validation condition
-                    showDialogBox("Please enter the asked value in the text field correctly.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+                    showDialogBox("Please enter the asked value in the text field correctly.", "Validation Failed",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
@@ -1502,7 +1513,8 @@ public class Watch extends javax.swing.JFrame {
                 || tfPrice.getText().isEmpty()
                 || tfWarranty.getText().isEmpty()) {
             // Display a single message for all empty fields
-            showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed", JOptionPane.INFORMATION_MESSAGE);
+            showDialogBox("All fields must be filled in. Please complete all fields.", "Validation Failed",
+                    JOptionPane.INFORMATION_MESSAGE);
             lblErrorMessage.setVisible(true);
             isValid = false;
         } else {
@@ -1510,7 +1522,8 @@ public class Watch extends javax.swing.JFrame {
 
             // Ensure a row is selected
             if (selectedRowIndex < 0) {
-                JOptionPane.showMessageDialog(null, "Please select a watch to update.", "Selection Error", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please select a watch to update.", "Selection Error",
+                        JOptionPane.INFORMATION_MESSAGE);
                 return; // Exit early if no row is selected
             }
             try {
@@ -1523,7 +1536,8 @@ public class Watch extends javax.swing.JFrame {
                     boolean serialExists = watchIS.stream()
                             .anyMatch(watch -> watch.getSerialNumber() == serialNumber && watch != watchToUpdate);
                     if (serialExists) {
-                        JOptionPane.showMessageDialog(null, "Serial number already exists. Please enter a unique serial number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Serial number already exists. "
+                                + "Please enter a unique serial number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
                         isValid = false;
                     } else {
                         watchToUpdate.setSerialNumber(serialNumber);
@@ -1531,10 +1545,12 @@ public class Watch extends javax.swing.JFrame {
                     // Validate and set Model Number
                     int modelNumber = Integer.parseInt(tfModelNumber.getText().trim());
                     if (String.valueOf(modelNumber).length() < 3) {
-                        JOptionPane.showMessageDialog(null, "Model number must be at least 3 digits.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Model number must be at least 3 digits.",
+                                "Validation Error", JOptionPane.ERROR_MESSAGE);
                         isValid = false;
                     } else if (watchIS.stream().anyMatch(watch -> watch.getModelNumber() == modelNumber && watch != watchToUpdate)) {
-                        JOptionPane.showMessageDialog(null, "Model number already exists. Please enter a unique model number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Model number already exists. "
+                                + "Please enter a unique model number.", "Validation Error", JOptionPane.WARNING_MESSAGE);
                         isValid = false;
                     } else {
                         watchToUpdate.setModelNumber(modelNumber);
@@ -1543,7 +1559,8 @@ public class Watch extends javax.swing.JFrame {
                     // Validate and set Name
                     String name = tfName.getText().trim();
                     if (!isValidName) {
-                        showDialogBox("Name must contain only alphabets. Please enter a valid name.", "Validation Failed", JOptionPane.ERROR_MESSAGE);
+                        showDialogBox("Name must contain only alphabets. Please enter a valid name.",
+                                "Validation Failed", JOptionPane.ERROR_MESSAGE);
                         lblErrorMessage.setVisible(true);
                         isValid = false;
                     } else {
@@ -1552,7 +1569,8 @@ public class Watch extends javax.swing.JFrame {
                     // Validate and set Brand
                     String brand = tfBrand.getText().trim();
                     if (brand.isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Brand cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Brand cannot be empty.",
+                                "Validation Error", JOptionPane.ERROR_MESSAGE);
                         isValid = false;
                     } else {
                         watchToUpdate.setBrand(brand);
@@ -1560,7 +1578,8 @@ public class Watch extends javax.swing.JFrame {
                     // Validate and set Price
                     double price = Double.parseDouble(tfPrice.getText().trim());
                     if (price <= 0) {
-                        JOptionPane.showMessageDialog(null, "Price must be greater than zero.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Price must be greater than zero.",
+                                "Validation Error", JOptionPane.ERROR_MESSAGE);
                         isValid = false;
                     } else {
                         watchToUpdate.setPrice(price);
@@ -1568,16 +1587,19 @@ public class Watch extends javax.swing.JFrame {
                     // Validate and set Warranty
                     String warranty = tfWarranty.getText().trim();
                     if (warranty.isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Warranty cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Warranty cannot be empty.", "Validation Error",
+                                JOptionPane.ERROR_MESSAGE);
                         isValid = false;
                     } else {
                         watchToUpdate.setWarranty(warranty);
                     }
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Please enter valid numeric values for Serial Number, Model Number, and Price.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please enter valid numeric values for Serial Number, Model Number,"
+                            + " and Price.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
                     isValid = false;
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "An unexpected error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "An unexpected error occurred: " + e.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
                     isValid = false;
                 }
                 // Perform actions only if all validations pass
@@ -1587,11 +1609,13 @@ public class Watch extends javax.swing.JFrame {
                     // Clear form after updating
                     clearWatchForm();
                     // Show success message
-                    JOptionPane.showMessageDialog(null, "Watch Information updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Watch Information updated successfully.",
+                            "Success", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception e) {
                 // Handle potential errors
-                JOptionPane.showMessageDialog(null, "An error occurred while updating the watch. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "An error occurred while updating the watch. Please try again.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -1633,7 +1657,8 @@ public class Watch extends javax.swing.JFrame {
                 );
             } catch (Exception e) {
                 // Handle potential errors
-                showDialogBox("An error occurred while deleting the watch. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                showDialogBox("An error occurred while deleting the watch. Please try again.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -1646,7 +1671,8 @@ public class Watch extends javax.swing.JFrame {
         // Ensure a row is selected in the table
         int selectedRowIndex = tblWatchInfo.getSelectedRow();
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a watch from the table.", "No Selection", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please select a watch from the table.", "No Selection",
+                    JOptionPane.INFORMATION_MESSAGE);
             return; // Exit if no row is selected
         }
         try {
@@ -1667,7 +1693,8 @@ public class Watch extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, watchDetails, "Watch Details", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             // Handle any potential errors
-            JOptionPane.showMessageDialog(null, "An error occurred while retrieving the watch details: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "An error occurred while retrieving the watch details: "
+                    + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnDisplayActionPerformed
 
@@ -1703,6 +1730,8 @@ public class Watch extends javax.swing.JFrame {
         // Show result
         if (search != null) {
             JOptionPane.showMessageDialog(this, "Found: " + search.getName() + " - " + search.getBrand());
+            System.out.println(search.getName() + " - " + search.getBrand() + "- Price:" + search.getPrice()
+                    + "-ModelNumber:" + search.getModelNumber());
         } else {
             JOptionPane.showMessageDialog(this, "Watch with name '" + name + "' not found.");
         }
